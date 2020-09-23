@@ -9,7 +9,15 @@ public class Main {
         Random r = new Random();
         Scanner scan = new Scanner(System.in);
         ArrayList<String> wordBank = new ArrayList<>(){{
-
+            add("cat");
+            add("crab");
+            add("garbage");
+            add("sound");
+            add("wallet");
+            add("gorilla");
+            add("python");
+            add("fan");
+            add("dog");
             add("rainbow");
             add("yogurt");
             add("zebra");
@@ -17,11 +25,9 @@ public class Main {
             add("house");
             add("balloon");
             add("computer");
-
         }};
 
         boolean play = true;
-
 
         while(play){   //Game loop
 
@@ -29,8 +35,10 @@ public class Main {
             String[] pieces = {" "," "," "," "," "," "," "};
             ArrayList<String> wrongLetters = new ArrayList<>();
             ArrayList<String> correctLetters = new ArrayList<>();
+
             ArrayList<String> wordList = new ArrayList<>();
             String word = wordBank.get(r.nextInt(wordBank.size()));
+            int wrongGuesses = 0;
 
             //initialize wordlist and correct letters
             Collections.addAll(wordList, word.split(""));
@@ -38,15 +46,19 @@ public class Main {
                 correctLetters.add("_");
             }
 
-            int wrongGuesses = 0;
+
 
             System.out.println("H A N G M A N");
-
 
             while(true){//Session loop
             printGame(pieces,wrongLetters,correctLetters);
             System.out.println("Take a guess:\n");
             String guess = scan.next().toLowerCase();
+
+            if(guess.length()!=1 || !guess.matches("[a-z]")){
+                System.out.println("Please enter a single character");
+                continue;
+            }
 
             if(wrongLetters.contains(guess) || correctLetters.contains(guess)){
                 System.out.println("You've already guessed this letter. Try again.");
@@ -71,7 +83,6 @@ public class Main {
                 wrongLetters.add(guess);
                 setPiece(wrongGuesses,pieces);
 
-
                 if(wrongGuesses == 7) {  //lose condition
                     printGame(pieces,wrongLetters,correctLetters);
                     System.out.println("You lose! The word was: " + word);
@@ -84,16 +95,16 @@ public class Main {
             }//end session loop
 
             while(true){ //reset loop
-            System.out.println("Do you want to play again? (yes or no)");
-            String reset = scan.next();
-
-            if(reset.equals("no")){
+            System.out.println("Do you want to play again? (yes or no)...");
+            String reset = scan.next().toLowerCase();
+            if(reset.matches("no")){
                 play=false;
                 break;
             }
-            else if(reset.equals("yes")){
+            else if(reset.matches("yes")){
                break;
             }
+            System.out.println("Enter yes or no!");
             }
 
         }//end game loop
@@ -109,8 +120,6 @@ public class Main {
         System.out.print("Missed letters: ");
         System.out.println(Arrays.toString(wrongLetters.toArray()));
         System.out.println("\n"+Arrays.toString(correctLetters.toArray())+"\n");
-
-
 
     }
 
