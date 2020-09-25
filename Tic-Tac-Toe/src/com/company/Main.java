@@ -29,7 +29,7 @@ public class Main {
 
             String player = input;
             String computer = input.equals("X") ? "O" : "X";
-            //set initially to player as it swaps in loop
+            //set initially to player as it swaps in loop.
             String turn = player;
 
             System.out.println("The Computer will go first.");
@@ -47,14 +47,18 @@ public class Main {
                 } else {//Player
                     if (playerChoice(spots, player, scan)) {
                         System.out.println("You won! Congratulations!");
+                        printBoard(spots);
+
                         break;
                     }
                 }
 
                 counter++;
             }
+
             if (counter == 9) {
-                System.out.println("Its a tie!");
+                System.out.println("\nIts a tie!");
+                printBoard(spots);
             }
             //play again?
             while (true) {
@@ -209,7 +213,7 @@ public class Main {
                 }
                 break;
             case 8:
-                if ((spots[5].equals(turn) && spots[2].equals(turn)) || (spots[7].equals(turn) && spots[6].equals(turn))) {
+                if ((spots[5].equals(turn) && spots[2].equals(turn)) || (spots[7].equals(turn) && spots[6].equals(turn)) || (spots[0].equals(turn) && spots[4].equals(turn)) ) {
 
                     return true;
                 }
