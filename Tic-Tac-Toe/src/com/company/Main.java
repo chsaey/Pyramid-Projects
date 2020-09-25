@@ -1,5 +1,8 @@
 package com.company;
 
+import java.awt.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Scanner;
@@ -8,14 +11,10 @@ public class Main {
 
     public static void main(String[] args) {
 	// write your code here
-        Random r = new Random();
+
         Scanner scan = new Scanner(System.in);
 
-/*        String[][] spots = {
-                {" ", " ", " "},
-                {" ", " ", " "},
-                {" ", " ", " "},
-        };*/
+
         String[] spots = {" ", " ", " "," ", " ", " "," ", " ", " "};
 
         System.out.println("Welcome to Tic-Tac-Toe!");
@@ -23,46 +22,37 @@ public class Main {
         boolean play = true;
         //Game loop
         while(play){//setup
-            System.out.println("Do you want to be X or O?");
 
-            //set up choice loop
-            HashSet<String> choices = new HashSet<String>();
+            System.out.println("Do you want to be X or O?");
             String input = scan.next();
             String player = input;
             String computer = input.equals("X") ? "O":"X";
-            String turn = computer;
+            String turn = player;
 
             System.out.println("The Computer will go first.");
-
-            // possibly move to ai later
-            String[] startingChoices = {"1","3","7","9"};
-            int start = r.nextInt(4);
-            updateBoard(spots,startingChoices[start],turn);
-            printBoard(spots);
-
-            int counter = 1;
+            int counter = 0;
             while(counter < 9){  //Sessionloop
                 turn = turn.equals(player) ? computer:player;
 
                 if(turn.equals(computer)){ //AI
-                    AIChoice(spots,turn);
+                    AIChoice(spots,computer,player);
                 }
                 else{//Player
-                    playChoice(spots, turn, scan);
-                    printBoard(spots);
+                    playChoice(spots, player, scan);
                 }
+                printBoard(spots);
                 counter++;
             }
         }
     }
 
 
-    public static void playChoice(String[]spots,String turn,Scanner scan) {
+    public static void playChoice(String[]spots,String player,Scanner scan) {
         while (true) {
             System.out.println("What is your next move?");
             String input = scan.next();
-            if (spots[Integer.valueOf(input)] ==" " ) {
-                updateBoard(spots, input, turn);
+            if (spots[Integer.parseInt(input)-1].equals(" ")) {
+                updateBoard(spots, input, player);
                 break;
             } else {
                 System.out.println("Spot already taken! Try another!");
@@ -71,30 +61,58 @@ public class Main {
     }
 
 
-    public static void AIChoice (String[] spots, String turn){
+    public static boolean AIChoice (String[] spots, String computer, String player){
         //Check if there is a win condition
+        boolean block = false;
+        int blockSpot =0;
+
+        //check if can win and block spots
         for (int i = 0; i < spots.length ; i++) {
-            if(spots[i+1].equals(turn)){
 
-
+            if( spots[i].equals(" ")){
+                if(checkBoard(spots,i,computer)){
+                    updateBoard(spots,String.valueOf(i+1),computer);
+                    return true;
+                }
+                if(checkBoard(spots,i,player)){
+                    block =true;
+                    blockSpot=i+1;
+                }
             }
         }
 
-
-        //block
-
-        //corner
-        //random
-
+        if(block){
+            updateBoard(spots,String.valueOf(blockSpot),computer);
+        } else{
+            updateBoard(spots, String.valueOf(pickSpot(spots)), computer);
+        }
+    return false;
     }
 
-    public static int checkWin(String[]spots, String turn){
-        //ret 0 - no win
-        //ret 1 - potential
-        //ret 2 - win
-        //123, 147, 159, 456, 798, 258, 357, 369
+    public static int pickSpot(String[] spots) {
+        Random r = new Random();
+        ArrayList<Integer> corner = new ArrayList<>();
+        ArrayList<Integer> other = new ArrayList<>();
+        for (int i = 0; i < spots.length; i++) {
+            if (spots[i].equals(" ")) {
+                switch (i) {
+                    case 0, 2, 6, 8:
+                        corner.add(i);
+                    default:
+                        other.add(i);
+                }
+            }
 
+        }
+        if (corner.size() > 0) {
+            return corner.get(r.nextInt(corner.size())) + 1;
+        } else {
+            return other.get(r.nextInt(corner.size())) + 1;
+        }
     }
+
+
+
 
     public static void printBoard (String[] spots){
         System.out.printf(" %s | %s | %s\n",spots[0],spots[1],spots[2]);
@@ -103,6 +121,71 @@ public class Main {
         System.out.println("-----------");
         System.out.printf(" %s | %s | %s\n",spots[6],spots[7],spots[8]);
 
+    }
+
+
+    public static boolean checkBoard(String[] spots, int i, String turn){
+
+        switch(i){
+            case 0:
+                if ((spots[1].equals(turn) && spots[2].equals(turn)) || (spots[3].equals(turn) && spots[6].equals(turn)) || (spots[4].equals(turn) && spots[8].equals(turn)) ) {
+
+                    return true;
+                }
+                break;
+
+            case 1:
+                if ((spots[0].equals(turn) && spots[2].equals(turn)) || (spots[4].equals(turn) && spots[7].equals(turn)) ) {
+
+                    return true;
+
+                }
+                break;
+            case 2:
+                if ((spots[0].equals(turn) && spots[1].equals(turn) )|| (spots[5].equals(turn) && spots[8].equals(turn)) || (spots[4].equals(turn) && spots[6].equals(turn)) ) {
+
+                    return true;
+
+                }
+                break;
+            case 3:
+                if ((spots[0].equals(turn) && spots[6].equals(turn)) || (spots[4].equals(turn) && spots[5].equals(turn) )) {
+
+                    return true;
+                }
+                break;
+            case 4:
+                if ((spots[0].equals(turn) && spots[8].equals(turn)) || (spots[2].equals(turn) && spots[6].equals(turn))|| (spots[1].equals(turn) && spots[7].equals(turn)) || (spots[3].equals(turn) && spots[5].equals(turn)) ) {
+
+                    return true;
+                }
+                break;
+            case 5:
+                if ((spots[3].equals(turn) && spots[4].equals(turn)) || (spots[2].equals(turn) && spots[8].equals(turn) )) {
+
+                    return true;
+                }
+                break;
+            case 6:
+                if ((spots[0].equals(turn) && spots[3].equals(turn)) || (spots[7].equals(turn) && spots[8].equals(turn)) || (spots[4].equals(turn) && spots[2].equals(turn)) ) {
+
+                    return true;
+                }
+                break;
+            case 7:
+                if ((spots[4].equals(turn) && spots[1].equals(turn)) || (spots[6].equals(turn) && spots[8].equals(turn))  ) {
+
+                    return true;
+                }
+                break;
+            case 8:
+                if ((spots[5].equals(turn) && spots[2].equals(turn)) || (spots[7].equals(turn) && spots[6].equals(turn)) ) {
+
+                    return true;
+                }
+                break;
+        }
+        return false;
     }
 
 
