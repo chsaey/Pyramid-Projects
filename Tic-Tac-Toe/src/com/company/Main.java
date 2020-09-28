@@ -10,14 +10,14 @@ public class Main {
 
         Scanner scan = new Scanner(System.in);
         System.out.println("Welcome to Tic-Tac-Toe!");
+
+
         boolean play = true;
-
-
         while (play) { //Game loop
             //setup
             String[] spots = {" ", " ", " ", " ", " ", " ", " ", " ", " "};
             String input;
-            while (true) {
+            while (true) {//choose loop
 
                 System.out.println("Do you want to be X or O?");
                 input = scan.next().toUpperCase();
@@ -25,10 +25,11 @@ public class Main {
                     break;
                 }
                 System.out.println("...Please enter X or O...");
-            }
+            }//end choose loop
 
             String player = input;
             String computer = input.equals("X") ? "O" : "X";
+
             //set initially to player as it swaps in loop.
             String turn = player;
 

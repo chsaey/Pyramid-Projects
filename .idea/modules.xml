@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Dragon Cave/Dragon Cave.iml" filepath="$PROJECT_DIR$/Dragon Cave/Dragon Cave.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GuessTheNumber/GuessTheNumber.iml" filepath="$PROJECT_DIR$/GuessTheNumber/GuessTheNumber.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Hangman/Hangman.iml" filepath="$PROJECT_DIR$/Hangman/Hangman.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HumansVSGoblins/HumansVSGoblins.iml" filepath="$PROJECT_DIR$/HumansVSGoblins/HumansVSGoblins.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Pyramid-Projects.iml" filepath="$PROJECT_DIR$/.idea/Pyramid-Projects.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TestEnvironment/TestEnvironment.iml" filepath="$PROJECT_DIR$/TestEnvironment/TestEnvironment.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Tic-Tac-Toe/Tic-Tac-Toe.iml" filepath="$PROJECT_DIR$/Tic-Tac-Toe/Tic-Tac-Toe.iml" />
+    </modules>
+  </component>
+</project>
