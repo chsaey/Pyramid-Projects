@@ -15,102 +15,145 @@
 
 package com.company;
 
+import com.sun.jdi.connect.spi.TransportService;
+
 import java.util.*;
 
 public class Main {
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-	// write your code here
-        //generate player
-        //generate goblin list
-        //generate the world with pieces
         System.out.println("Welcome to Humans VS Goblins!");
 
-        //GameLoop
         boolean play = true;
-        //game loop
+        //Game loop
         while(play){
 
         System.out.println("Please enter your characters name: ");
 
         String name = scan.next();
         Human h = new Human(name);
-        Goblin bob = new Goblin("bob");
-        Goblin kevin = new Goblin("kevin");
-        Goblin tim = new Goblin("tim");
-        ArrayList<Goblin> goblins = new ArrayList<>(){{
-            add(bob);
-            add(kevin);
-            add(tim);
-        }};
-
-        World world = new World(h,goblins);
+        World world = new World(h);
         boolean isPLayersTurn = false;
+        int round = 0;
+
         //session loop
-        while(true){
-            world.printLand();
+        while(h.getHP() > 0 && world.goblinsAlive()){
+
             isPLayersTurn = isPLayersTurn ? false:true;
-            System.out.println("Your turn...\nOptions:\n");
 
-
-            LinkedHashMap<String, Object> result = world.checkGrid(h.getX(), h.getY());
-            printResult(result);
-
-
-            while(true){//player choice
-                System.out.println("What do you want to do?...");
-                String input = scan.next();
-                if(input.equals("w") && result.containsKey("west")){
-                    if(result.get("west").getClass().getSimpleName().equals("Goblin")){
-                        h.attack((Character)result.get("west"));
-                    } else{
-                        world.setPieceOnGrid(h,-1, 0);
-                    }
-                } else if(input.equals("n") && result.containsKey("north")){
-                    if(result.get("north").getClass().getSimpleName().equals("Goblin")){
-                        h.attack((Character)result.get("north"));
-                    }else{
-                        world.setPieceOnGrid(h,0, 1);
-                    }
-                } else if(input.equals("e") && result.containsKey("east")){
-                    if(result.get("east").getClass().getSimpleName().equals("Goblin")){
-                        h.attack((Character)result.get("east"));
-                    }else{
-                        world.setPieceOnGrid(h,1,0 );
-                    }
-                } else if(input.equals("s") && result.containsKey("south")){
-                    if(result.get("south").getClass().getSimpleName().equals("Goblin")){
-                        h.attack((Character)result.get("south"));
-                    }else{
-                        world.setPieceOnGrid(h,-1, 0);
-                    }
-                } else{
-                    System.out.println("This is not a valid option. Try again");
-                }
-            }// end player choice
-
+            //player turn
+            if(isPLayersTurn){
+                round++;
+                System.out.println("------ Round "+ round +" ------");
+                System.out.print(h.toString());
+                world.printLand();
+                playerTurn(h,world,scan);
+            } else{
+                goblinsTurn(world);
+            }
+            //Goblins turn
 
         }// end session loop
 
+            if(h.getHP() <=0){
+                world.removePieceOnGrid(h);
+                System.out.println("You were Killed by a Goblin... Game Over!");
+            } else{
+                System.out.println("All Goblins have been slain!... You Win!");
+            }
+            System.out.print(h.toString());
+            world.printLand();
+            while(true){
+            System.out.println("Play Again?...(y or n)");
+            String input = scan.next();
+            if(input.toLowerCase().equals("n")){
+            play = false;
+            break;
+        } else if(input.toLowerCase().equals("y")){
+            break;
+        } else{
+            System.out.println("Invalid input. Try again...");
+        }
+            }
         }// end game loop
+
     }//end main
+    public static void goblinsTurn(World world){
+        LinkedHashMap<String, Object> result = new LinkedHashMap<>();
+        for (Goblin g : world.getGoblins()){
+           result = world.checkGrid(g.getRow(),g.getColumn());
+
+           if(result.containsValue(world.getHuman())){
+               g.attack(world.getHuman());
+           }
+           else{
+
+           }
+        }
+    }
+
+    public static void playerTurn(Human h, World world, Scanner scan ){
+        while(true){//player choice
+
+            LinkedHashMap<String, Object> result = world.checkGrid(h.getRow(), h.getColumn());
+
+            printResult(result);
+            System.out.println("\nWhat do you want to do?...");
+            String input = scan.next();
+            if(input.equals("w") && result.containsKey("west")){
+                if(!isAttack(result, "west", h, world)){
+                    world.movePieceOnGrid(h,0, -1);
+                }break;
+            } else if(input.equals("n") && result.containsKey("north")){
+                if(!isAttack(result, "north", h, world)){
+                    world.movePieceOnGrid(h,-1, 0);
+                }break;
+            } else if(input.equals("e") && result.containsKey("east")){
+                if(!isAttack(result, "east", h, world)){
+                    world.movePieceOnGrid(h,0, 1);
+                }break;
+            } else if(input.equals("s") && result.containsKey("south")){
+                if(!isAttack(result, "south", h, world)){
+                    world.movePieceOnGrid(h,1, 0);
+                }break;
+            } else{
+                System.out.println("OPTION INVALID. TRY AGAIN.");
+            }
+        }// end player choice
+    }
 
     public static void printResult(LinkedHashMap<String,Object> result){
 
         for ( Map.Entry<String, Object> e: result.entrySet()
         ) {
             switch(e.getValue().getClass().getSimpleName()){
-                case "Land":
-                    System.out.println(e.getKey().charAt(0) + ": Move" +e.getKey()+ ", there is nothing in your way");
+                case "String":
+                    System.out.println(e.getKey().charAt(0) + ") Move " +e.getKey()+ ", there is nothing in your way...");
                     break;
                 case "Goblin":
-                    System.out.println(e.getKey().charAt(0) + ": Attack the Goblin to your " +e.getKey());
+                    System.out.println(e.getKey().charAt(0) + ") Attack the monster to your " +e.getKey() + ":");
+                    System.out.println(result.get(e.getKey()).toString());
+                    break;
+                case "Human":
+                    System.out.println(e.getKey().charAt(0) + ") Attack the Human to your " +e.getKey() + ":");
+                    System.out.println(result.get(e.getKey()).toString());
+                    break;
             }
-
         }
-
     }
 
+    public static boolean isAttack(LinkedHashMap<String,Object> result, String direction, Human h, World w){
 
+        String name = result.get(direction).getClass().getSimpleName();
+        if(name.equals("Goblin")){
+            Character goblin = (Character)result.get((direction));
+            if(h.attack(goblin) < 0){
+                w.removePieceOnGrid(goblin);
+            }
+            return true;
+        } else{
+            return false;
+        }
+    }
 }

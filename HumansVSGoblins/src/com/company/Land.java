@@ -6,7 +6,7 @@ public class Land {
     char value;
 
     public Land (){
-        this.on = new Land();
+        this.on = " ";
         this.value = 'L';
     }
 

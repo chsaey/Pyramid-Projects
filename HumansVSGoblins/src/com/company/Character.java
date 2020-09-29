@@ -7,15 +7,15 @@ public abstract class Character{
     protected int strength;
     protected String name;
     protected Random r = new Random();
-    protected int x;
-    protected int y;
+    protected int row;
+    protected int column;
 
 
     public int getStrength(){
         return strength;
     }
     public int getHP(){
-        return strength;
+        return HP;
     }
     public String getName(){
         return name;
@@ -32,15 +32,21 @@ public abstract class Character{
     public int rollDamage(int str){
         return r.nextInt(str);
     }
-    public void setX(int x ){  this.x = x;  }
-    public void setY(int y ){  this.y = y;  }
-    public int getX(){  return this.x;  }
-    public int getY(){  return this.y;  }
+    public void setRow(int row ){  this.row = row;  }
+    public void setColumn(int column ){  this.column = column;  }
+    public int getRow(){  return this.row;  }
+    public int getColumn(){  return this.column;  }
 
 
     public int attack(Character obj){
         int dmg = rollDamage(getStrength());
-        obj.setHP(obj.getHP()-rollDamage(getStrength()));
+        obj.setHP(obj.getHP()-dmg);
+        System.out.println("<" + obj.getClass().getSimpleName() + " " + obj.getName() + " was hit for "+ dmg + " damage!>" );
+
+        if (obj.getHP()<0){
+            System.out.println("<" + obj.getName() + " has been slain!>\n" );
+        }
+
         return obj.getHP();
     }
 

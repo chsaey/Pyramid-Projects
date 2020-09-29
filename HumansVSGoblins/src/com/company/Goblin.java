@@ -9,7 +9,7 @@ public class Goblin extends Character {
     }
 
     public String toString() {
-        return "Type: Goblin "+ "Name: " + this.name + "HP : " + this.HP + "Strength : " + this.strength;
+        return "Type: Goblin"+ "\nName: " + this.name + "\nHP : " + this.HP + "\nStrength : " + this.strength;
     }
 
 }
