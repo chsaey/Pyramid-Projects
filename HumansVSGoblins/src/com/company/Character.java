@@ -43,7 +43,7 @@ public abstract class Character{
         obj.setHP(obj.getHP()-dmg);
         System.out.println("<" + obj.getClass().getSimpleName() + " " + obj.getName() + " was hit for "+ dmg + " damage!>" );
 
-        if (obj.getHP()<0){
+        if (obj.getHP()<=0){
             System.out.println("<" + obj.getName() + " has been slain!>\n" );
         }
 

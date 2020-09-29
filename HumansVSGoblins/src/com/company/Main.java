@@ -83,12 +83,29 @@ public class Main {
         LinkedHashMap<String, Object> result = new LinkedHashMap<>();
         for (Goblin g : world.getGoblins()){
            result = world.checkGrid(g.getRow(),g.getColumn());
-
            if(result.containsValue(world.getHuman())){
                g.attack(world.getHuman());
            }
            else{
+               String[] keyArray = result.keySet().toArray(new String[result.keySet().size()]);
+               Random r = new Random();
+               int choice = r.nextInt(keyArray.length);
 
+               switch (keyArray[choice]){
+
+                   case "west":
+                       world.movePieceOnGrid(g,0,-1);
+                       break;
+                   case"north":
+                       world.movePieceOnGrid(g,-1,0);
+                       break;
+                   case"east":
+                       world.movePieceOnGrid(g,0,1);
+                       break;
+                   case"south":
+                       world.movePieceOnGrid(g,1,0);
+                       break;
+               }
            }
         }
     }
