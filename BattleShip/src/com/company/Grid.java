@@ -39,11 +39,27 @@ public class Grid {
     }
 
     public boolean checkGrid(int row, int column){
-        if(grid[row][column] == '~'){
+        if(grid[row-1][column-1] == '~'){
             return true;
         }
         return false;
     }
+
+    public boolean checkGrid(Coordinate coordinate){
+        if(grid[coordinate.getRow()-1][coordinate.getColumn()-1] == '~'){
+            return true;
+        }
+        return false;
+    }
+
+    public void placeOnGrid(Coordinate coordinate, char shipID){
+        this.grid[coordinate.getRow()-1][coordinate.getColumn()-1] = shipID;
+    }
+
+
+
+
+
 
 
 

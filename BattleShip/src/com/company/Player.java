@@ -28,11 +28,11 @@ public class Player {
         return name;
     }
 
-    public boolean addShip(Ship ship, int row, int column){
-
-        System.out.print(ship.getClass().getSimpleName());
-
-        return false;
+    public void addShip(Ship ship){
+        ships.add(ship);
+        for (Coordinate c: ship.getCoordinates()
+             ) {
+            this.shipGrid.placeOnGrid(c,ship.getShipID());
+        }
     }
-
 }
