@@ -39,12 +39,18 @@ public class Coordinate {
         return id;
     }
 
+    public boolean isValid(){
+        if(this.row<= 9 && this.row>0 && this.column <=9 && this.column >0){
+            return true;
+        }
+        return false;
+    }
+
 
     public boolean isEqual(Coordinate coordinate){
         if(coordinate.getId().equals(this.id)){
             return true;
         }
         return false;
-
     }
 }

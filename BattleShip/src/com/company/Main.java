@@ -34,10 +34,42 @@ public class Main {
         initializeShip(board.getPlayer2(), new Battleship());
 
         //Battle phase
-
-            
-
+            while(true){
+                battlePhase(board.getPlayer1(), board.getPlayer2());
+                battlePhase(board.getPlayer2(), board.getPlayer1());
+            }
         }//end game loop
+    }
+
+    public static void battlePhase(Player attacker, Player defender){
+        Scanner scan = new Scanner(System.in);
+        attacker.getPlayGrid().printGrid();
+        while(true){
+            System.out.println(attacker.getName() +" please choose a coordinate to attack");
+            String input = scan.next();
+            Coordinate coordinate = new Coordinate(input);
+            if(evaluateCoordinate(coordinate, attacker.getPlayGrid())){
+                fire(coordinate,attacker.getPlayGrid(),defender.getShipGrid(), defender);
+                break;
+            }
+            System.out.println("You've hit this spot or it's out of bounds. Try again.");
+        }
+    }
+    public static void fire(Coordinate coordinate, Grid playGrid, Grid shipGrid, Player defender) {
+
+        char hit = shipGrid.getPointOnGrid(coordinate);
+        switch(hit){
+            case '~':
+                System.out.println("You missed!");
+                playGrid.setPointOnGrid(coordinate,'M');
+                break;
+            default:
+                System.out.println("Hit!");
+                playGrid.setPointOnGrid(coordinate,'X');
+                defender.hitShip(hit,coordinate);
+                break;
+        }
+
     }
 
     public static void initializeShip(Player player, Ship ship){
@@ -66,11 +98,13 @@ public class Main {
 
     public static boolean evaluateCoordinate(Coordinate coordinate, Grid grid) {
 
-        if (coordinate.getRow() >= 1 && coordinate.getRow() <= 9 && coordinate.getColumn() >= 1 && coordinate.getColumn() <= 9 && grid.checkGrid(coordinate)) {
+        if (coordinate.isValid() && grid.checkGrid(coordinate)) {
             return true;
         }
         return false;
     }
+
+
 
 
     public static boolean canPlaceShip(Coordinate coordinate, String direction, Player player, int length) {

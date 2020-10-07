@@ -38,11 +38,11 @@ public class Grid {
         }
     }
 
-    public boolean checkGrid(int row, int column){
-        if(grid[row-1][column-1] == '~'){
-            return true;
-        }
-        return false;
+    public char getPointOnGrid(Coordinate coordinate){
+        return grid[coordinate.getRow()-1][coordinate.getColumn()-1];
+    }
+    public void setPointOnGrid(Coordinate coordinate, char marker){
+        grid[coordinate.getRow()-1][coordinate.getColumn()-1] = marker;
     }
 
     public boolean checkGrid(Coordinate coordinate){
@@ -51,6 +51,7 @@ public class Grid {
         }
         return false;
     }
+
 
     public void placeOnGrid(Coordinate coordinate, char shipID){
         this.grid[coordinate.getRow()-1][coordinate.getColumn()-1] = shipID;
