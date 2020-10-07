@@ -1,5 +1,7 @@
 package com.company;
 
+import jdk.jshell.spi.ExecutionControlProvider;
+
 import java.util.*;
 
 public class Main {
@@ -47,17 +49,17 @@ public class Main {
             while(true){//Session loop
             printGame(pieces,wrongLetters,correctLetters);
             System.out.println("Take a guess:\n");
-            String guess = scan.next().toLowerCase();
+            try{
+            String guess = scan.next();
 
             // Check if it's a single character a-z
             if(guess.length()!=1 || !guess.matches("[a-z]")){
-                System.out.println("Please enter a single character");
-                continue;
+                throw new Exception("Invalid input. Please enter a single character");
             }
+
             // Check if we've seen the character
             if(wrongLetters.contains(guess) || correctLetters.contains(guess)){
-                System.out.println("You've already guessed this letter. Try again.");
-                continue;
+                throw new Exception("You've already guessed this letter. Try again.");
             }
 
             //check if character is in generated word
@@ -85,21 +87,28 @@ public class Main {
                     System.out.println("You lose! The word was: " + word);
                     break;
                 }
+            }} catch (Exception e) {
+                System.out.println(e.getMessage());
             }
 
             }//end session loop
 
             while(true){ //reset loop
-            System.out.println("Do you want to play again? (yes or no)...");
-            String reset = scan.next().toLowerCase();
-            if(reset.equals("no")){
-                play=false;
-                break;
-            }
-            else if(reset.equals("yes")){
-               break;
-            }
-            System.out.println("Enter yes or no!");
+                try{
+                    System.out.println("Do you want to play again? (yes or no)...");
+                    String reset = scan.next().toLowerCase();
+                    if(reset.equals("no")){
+                        play=false;
+                        break;
+                    }
+                    else if(reset.equals("yes")){
+                        break;
+                    }
+                    throw new Exception("Expected yes or no.");
+
+                } catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
             }
 
         }//end game loop

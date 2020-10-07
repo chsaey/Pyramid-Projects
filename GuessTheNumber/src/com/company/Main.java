@@ -1,4 +1,5 @@
 package com.company;
+
 import java.util.Random;
 import java.util.Scanner;
 
@@ -13,19 +14,30 @@ public class Main {
             Random r = new Random();
             int counter = 0;
             int num = r.nextInt(20) + 1;
+            String name;
 
             System.out.println("\nHello!, What is your name?\n");
-            String name = scan.next();
-            System.out.println("\nWell, " + name + ", I am thinking of a number between 1 and 20.");
+
+            while (true) {
+                try {
+                    name = scan.next();
+                    System.out.println("\nWell, " + name + ", I am thinking of a number between 1 and 20.");
+                    break;
+                } catch (Exception e) {
+                    System.out.println("Invalid");
+                }
+            }
+
 
             while (true) {//Guess loop
                 System.out.println("Take a guess.\n");
 
-                String guess = scan.next();
+                String guess;
                 int guessNum;
-                try{
+                try {
+                    guess = scan.next();
                     guessNum = Integer.parseInt(guess);
-                } catch (Exception e){
+                } catch (Exception e) {
                     System.out.println("\nInvalid! Enter a number please...");
                     continue;
                 }
@@ -40,16 +52,19 @@ public class Main {
                 }
             }//end guess loop
 
-            while(true){//reset loop
+            while (true) {//reset loop
                 System.out.println("Would you like to play again? (y or n)\n");
-                String reset = scan.next();
-                if(reset.toLowerCase().equals("n")){
-                    play = false;
-                    break;
+                try {
+                    String reset = scan.next();
+                    if (reset.toLowerCase().equals("n")) {
+                        play = false;
+                        break;
+                    } else if (reset.toLowerCase().equals("y")) {
+                        break;
+                    }
+                } catch (Exception e) {
                 }
-                else if(reset.toLowerCase().equals("y")){
-                    break;
-                }
+
             }// end reset loop
 
         }// end play loop
