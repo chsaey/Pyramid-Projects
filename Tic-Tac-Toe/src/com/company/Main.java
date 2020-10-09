@@ -13,7 +13,6 @@ public class Main {
         Scanner scan = new Scanner(System.in);
         System.out.println("Welcome to Tic-Tac-Toe!");
 
-
         boolean play = true;
         while (play) { //Game loop
             //setup
@@ -55,11 +54,9 @@ public class Main {
                     if (playerChoice(spots, player, scan)) {
                         System.out.println("You won! Congratulations!");
                         printBoard(spots);
-
                         break;
                     }
                 }
-
                 counter++;
             }
 
@@ -81,9 +78,7 @@ public class Main {
                     throw new Exception("Expected yes or no...");
                 } catch (Exception e){
                     System.out.println(e.getMessage());
-
                 }
-
             }
         }
     }
@@ -114,9 +109,6 @@ public class Main {
         }
         return false;
     }
-
-
-
 
 
     public static boolean AIChoice(String[] spots, String computer, String player) {

@@ -52,9 +52,25 @@ public class Grid {
         return false;
     }
 
-
     public void placeOnGrid(Coordinate coordinate, char shipID){
         this.grid[coordinate.getRow()-1][coordinate.getColumn()-1] = shipID;
+    }
+
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        System.out.println("  1 2 3 4 5 6 7 8 9");
+        int index =1;
+        for ( char[] c: grid
+        ) {
+            System.out.print(index+ " ");
+            index++;
+            for(int i = 0; i < c.length; i++){
+
+                sb.append(c[i] + " ");
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 
 

@@ -4,13 +4,31 @@ import static com.company.Test.*;
 
 public class Main {
 
+    public enum Roles {
+        Admin,
+        User,
+        Mod,
+    }
+
     public static void main(String[] args) {
 
-        Animal one = new Animal();
-        Animal two = new Animal();
+        char c = 'A';
+        System.out.println(++c);
 
-        one.testMethod();
-        two.testMethod();
+
+    }
+
+    public static String validRole(Roles role){
+        switch (role){
+            case Admin:
+                return "yo";
+            case User:
+                return "user";
+            case Mod:
+                return "loser";
+            default:
+                return "none";
+        }
 
     }
 }

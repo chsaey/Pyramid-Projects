@@ -1,8 +1,7 @@
 package com.company;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.HashMap;
+
+import java.util.Arrays;
 import java.util.HashSet;
 
 public abstract class Ship {
@@ -10,7 +9,7 @@ public abstract class Ship {
     protected HashSet<Coordinate> coordinates;
     protected char shipID;
 
-    public boolean hasCoordinate(String coordinate) { // check if ship is on the coordinate
+    public boolean hasCoordinate(String coordinate) {
         if (coordinates.contains(coordinate))
             return true;
         return false;
@@ -32,8 +31,10 @@ public abstract class Ship {
         return this.shipID;
     }
 
-    public void setLength(int length) {
-        this.length = length;
+    @Override
+    public String toString(){
+        return this.getClass().getSimpleName() + ":\nLength: " + this.length + ":\nShip ID: " + this.shipID + ":\nCoordinates: " + Arrays.toString(coordinates.toArray());
     }
+
 
 }

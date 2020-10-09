@@ -24,10 +24,9 @@ public class Main {
                     System.out.println("\nWell, " + name + ", I am thinking of a number between 1 and 20.");
                     break;
                 } catch (Exception e) {
-                    System.out.println("Invalid");
+                    System.out.println("Invalid, try again");
                 }
             }
-
 
             while (true) {//Guess loop
                 System.out.println("Take a guess.\n");
@@ -62,7 +61,9 @@ public class Main {
                     } else if (reset.toLowerCase().equals("y")) {
                         break;
                     }
+                    throw new Exception("Please enter a y or n");
                 } catch (Exception e) {
+                    System.out.println(e.getMessage());
                 }
 
             }// end reset loop

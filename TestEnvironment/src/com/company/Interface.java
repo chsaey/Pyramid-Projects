@@ -4,6 +4,9 @@ public interface Interface {
 
     public static final int x = 2;
 
-     public abstract void testMethod();
+     void testMethod();
+     default void defaultMethod(){
+         System.out.println("yo");
+     }
 
 }

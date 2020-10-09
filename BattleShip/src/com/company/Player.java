@@ -1,6 +1,6 @@
 package com.company;
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -8,7 +8,6 @@ public class Player {
     private String name;
     private Grid playGrid;
     private Grid shipGrid;
-    //private ArrayList<Ship> ships = new ArrayList<>();
     private HashMap<Character, HashSet<Coordinate>> ships = new HashMap<>();
 
     public Player() {
@@ -50,10 +49,26 @@ public class Player {
         return "";
     }
 
-    public HashMap<Character, HashSet<Coordinate>> getShips(){
-        return ships;
+    public void fire(Coordinate coordinate, Grid playGrid, Grid shipGrid, Player defender) {
 
+        char hit = shipGrid.getPointOnGrid(coordinate);
+        switch (hit) {
+            case '~':
+                System.out.println("<You missed!>");
+                playGrid.setPointOnGrid(coordinate, 'M');
+                break;
+            default:
+                System.out.println("<Hit!>");
+                playGrid.setPointOnGrid(coordinate, 'X');
+                String result = defender.hitShip(hit, coordinate);
+                if (!result.isEmpty()) {
+                    System.out.println("You sunk " + defender.getName() + "'s " + result + "!");
+                }
+                break;
+        }
     }
+
+    public HashMap<Character, HashSet<Coordinate>> getShips() { return ships; }
 
     public Grid getPlayGrid() {
         return this.playGrid;
@@ -73,5 +88,10 @@ public class Player {
         ) {
             this.shipGrid.placeOnGrid(c, ship.getShipID());
         }
+    }
+    @Override
+    public String toString(){
+        return name +" "+ships.keySet();
+
     }
 }

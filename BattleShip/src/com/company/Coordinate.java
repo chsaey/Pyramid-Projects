@@ -26,17 +26,11 @@ public class Coordinate {
     public String getId(){
         return id;
     }
-
     public void setRow(int row){
         this.row = row;
     }
     public void setColumn(int column){
         this.column = column;
-    }
-
-
-    public String toString(){
-        return id;
     }
 
     public boolean isValid(){
@@ -46,11 +40,15 @@ public class Coordinate {
         return false;
     }
 
-
     public boolean isEqual(Coordinate coordinate){
         if(coordinate.getId().equals(this.id)){
             return true;
         }
         return false;
+    }
+
+    @Override
+    public String toString(){
+        return id;
     }
 }

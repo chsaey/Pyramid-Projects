@@ -1,12 +1,8 @@
 package com.company;
 
-public class Animal implements Interface {
+class Animal{
 
-    @Override
-    public void testMethod() {
-
-        System.out.println(x);
-    }
+    private Animal(){}
 
 
 }

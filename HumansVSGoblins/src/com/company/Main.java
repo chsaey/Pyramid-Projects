@@ -128,6 +128,7 @@ public class Main {
                 printResult(result);
                 System.out.println("\nWhat do you want to do?...");
                 String input = scan.next();
+
                 if (input.equals("w") && result.containsKey("west")) {
                     if (!isAttack(result, "west", h, world)) {
                         world.movePieceOnGrid(h, 0, -1);

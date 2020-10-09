@@ -22,6 +22,7 @@ public class World {
             add(new Goblin("Kevin"));
             add(new Goblin("Tim"));
         }};
+
         grid = new Land[HEIGHT][WIDTH];
         for(int row = 0; row < grid.length; row++){
             for(int column =0; column < grid[0].length;column++){
