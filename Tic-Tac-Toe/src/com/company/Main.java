@@ -79,6 +79,7 @@ public class Main {
                 } catch (Exception e){
                     System.out.println(e.getMessage());
                 }
+
             }
         }
     }
@@ -109,6 +110,9 @@ public class Main {
         }
         return false;
     }
+
+
+
 
 
     public static boolean AIChoice(String[] spots, String computer, String player) {
