@@ -30,7 +30,6 @@ public class Main {
         GameState state = GameState.Name;
 
         while (true) {   //Game loop
-
             if (state == GameState.Name) {//name
                 name = getName(scan);
                 if (!name.equals(""))
@@ -81,33 +80,6 @@ public class Main {
         }
     }
 
-    public static void setHighScore(String word, String name, int score, HashSet<String> guesses) {
-        Gson gson = new Gson();
-        try {
-            HashMap<String, ArrayList<String>> map = new HashMap<>();
-            map = gson.fromJson(new FileReader("C:\\Users\\chsae\\Documents\\Code\\Pyramid-Projects\\Dynamic-Tic-Tac-Toe\\src\\com\\company\\scores.json", StandardCharsets.UTF_8), map.getClass());
-            ArrayList<String> temp = new ArrayList<>() {{
-                add(name);
-                add(String.valueOf(Integer.MAX_VALUE));
-            }};
-            map.putIfAbsent(word, temp);
-            if (score <= Integer.parseInt(map.get(word).get(1))) {
-                System.out.println("New high score for word: " + "\"" + word + "\". Solved in " + guesses.size() + " guesses by " + name);
-                map.replace(word, new ArrayList<String>(Arrays.asList(name, String.valueOf(guesses.size()))));
-                String json = gson.toJson(map);
-                FileWriter writer = new FileWriter("C:\\Users\\chsae\\Documents\\Code\\Pyramid-Projects\\Dynamic-Tic-Tac-Toe\\src\\com\\company\\scores.json", StandardCharsets.UTF_8);
-                writer.write(json);
-                writer.flush();
-                writer.close();
-            } else {
-                System.out.println("Current high score: " + map.get(word).get(1) + " guesses by " + map.get(word).get(0) + ". Your score: " + guesses.size());
-            }
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
     public static boolean checkWin(boolean win, String name, String word, HashSet<String> guesses) {
         if (win) {
             System.out.println("You Won! The word was: " + word);
@@ -124,6 +96,31 @@ public class Main {
         }
         return false;
     }
+
+    public static void setHighScore(String word, String name, int score, HashSet<String> guesses) {
+        Gson gson = new Gson();
+        try {
+            HashMap<String, ArrayList<String>> map = new HashMap<>();
+            map = gson.fromJson(new FileReader("C:\\Users\\chsae\\Documents\\Code\\Pyramid-Projects\\Dynamic-Tic-Tac-Toe\\src\\com\\company\\scores.json", StandardCharsets.UTF_8), map.getClass());
+            ArrayList<String> temp = new ArrayList<>(Arrays.asList(name,String.valueOf(Integer.MAX_VALUE)));
+            map.putIfAbsent(word, temp);
+
+            if (score <= Integer.parseInt(map.get(word).get(1))) {
+                System.out.println("New high score for word: " + "\"" + word + "\". Solved in " + guesses.size() + " guesses by " + name);
+                map.replace(word, new ArrayList<String>(Arrays.asList(name, String.valueOf(guesses.size()))));
+                String json = gson.toJson(map);
+                FileWriter writer = new FileWriter("C:\\Users\\chsae\\Documents\\Code\\Pyramid-Projects\\Dynamic-Tic-Tac-Toe\\src\\com\\company\\scores.json", StandardCharsets.UTF_8);
+                writer.write(json);
+                writer.flush();
+                writer.close();
+            } else {
+                System.out.println("Current high score: " + map.get(word).get(1) + " guesses by " + map.get(word).get(0) + ". Your score: " + guesses.size());
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
     public static String getWord() {
         Random r = new Random();
