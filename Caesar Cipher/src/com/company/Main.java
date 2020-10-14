@@ -15,12 +15,13 @@ public class Main {
         while (play) {
             System.out.println("Do you wish to encrypt or decrypt a message?\n");
             try {
-                switch (scan.nextLine()) {
+
+                switch (scan.nextLine().toLowerCase()) {
                     case "encrypt":
-                        encrypt(scan);
+                        encrypt();
                         break;
                     case "decrypt":
-                        decrypt(scan);
+                        decrypt();
                         break;
                     default:
                         throw new Exception("Please enter encrypt or decrypt!");
@@ -28,12 +29,14 @@ public class Main {
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
+
         }
     }
 
-    public static void encrypt(Scanner scan) {
-        char[] message = getMessage(scan);
-        int key = getKey(scan);
+    public static void encrypt() {
+        Scanner scan = new Scanner(System.in);
+        char[] message = getMessage();
+        int key = getKey();
 
         //encrypt
         StringBuilder sb = new StringBuilder();
@@ -60,16 +63,18 @@ public class Main {
         }
     }
 
-    public static void decrypt(Scanner scan) {
+    public static void decrypt() {
+        Scanner scan = new Scanner(System.in);
         ArrayList<String> message = new ArrayList<>();
+        try{message.addAll(Files.readAllLines(Paths.get("C:\\Users\\chsae\\Documents\\Code\\Pyramid-Projects\\Caesar Cipher\\src\\com\\company\\message.txt")));
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("\nEncrypted message: " + message.get(0));
         char[] cryptic;
-        int key = getKey(scan);
+        int key = getKey();
         StringBuilder sb = new StringBuilder();
-
-        try {
-            message.addAll(Files.readAllLines(Paths.get("C:\\Users\\chsae\\Documents\\Code\\Pyramid-Projects\\Caesar Cipher\\src\\com\\company\\message.txt")));
             cryptic = message.get(0).toCharArray();
-
             for (char c : cryptic
             ) {
                 if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122)) {
@@ -85,13 +90,11 @@ public class Main {
                 }
 sb.append(c);
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        System.out.println(sb.toString());
+        System.out.println("Decrypted message with key: " + sb.toString() + "\n");
     }
 
-    public static char[] getMessage(Scanner scan) {
+    public static char[] getMessage() {
+        Scanner scan = new Scanner(System.in);
         while (true) { // Message
             System.out.println("Enter your Message:\n");
             try {
@@ -102,17 +105,18 @@ sb.append(c);
         }
     }
 
-    public static int getKey(Scanner scan) {
+    public static int getKey() {
+        Scanner scan = new Scanner(System.in);
         while (true) { //key
             System.out.println("Enter the key number (1-52):\n");
             try {
-                int key = scan.nextInt();
+                int key = Integer.parseInt(scan.nextLine());
                 if (key < 1 || key > 52) {
                     throw new Exception("Please enter a valid key:\n");
                 }
                 return key;
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                System.out.println("Invalid input.");
             }
         }
     }
