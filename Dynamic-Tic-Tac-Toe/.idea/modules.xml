@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Dynamic-Tic-Tac-Toe.iml" filepath="$PROJECT_DIR$/Dynamic-Tic-Tac-Toe.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Functional_Hangman.iml" filepath="$PROJECT_DIR$/Functional_Hangman.iml" />
     </modules>
   </component>
 </project>
