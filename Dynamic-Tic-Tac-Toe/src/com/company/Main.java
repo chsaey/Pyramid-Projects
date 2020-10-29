@@ -36,13 +36,13 @@ public class Main {
                     state = GameState.Setup;
             } // end name state
 
-            if (state == GameState.Setup) { // game state
+            if (state == GameState.Setup) { // setup state
                 guesses = new HashSet<>();
                 word = getWord();
                 wordAsList = Stream.of(word.split("")).collect(Collectors.toCollection(ArrayList::new));
                 state = GameState.Play;
 
-            } // end game state
+            } // end setup state
 
             if (state == GameState.Play) {
                 HashSet<String> finalGuesses = guesses;

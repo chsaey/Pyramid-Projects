@@ -2,7 +2,9 @@ package com.company;
 
 class Animal{
 
-    private Animal(){}
+     protected Animal(){
+
+     }
 
 
 }

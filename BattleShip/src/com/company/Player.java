@@ -10,6 +10,7 @@ public class Player {
     private Grid shipGrid;
     private HashMap<Character, HashSet<Coordinate>> ships = new HashMap<>();
 
+
     public Player() {
     }
 
@@ -69,6 +70,10 @@ public class Player {
     }
 
     public HashMap<Character, HashSet<Coordinate>> getShips() { return ships; }
+
+    public void clearShips(){
+        this.ships = new HashMap<>();
+    }
 
     public Grid getPlayGrid() {
         return this.playGrid;

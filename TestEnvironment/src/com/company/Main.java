@@ -1,34 +1,60 @@
 package com.company;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.function.Function;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static com.company.Test.*;
+class MultithreadingDemo extends Thread implements Runnable
+{
+    public void run()
+    {
+        try
+        {
+            // Displaying the thread that is running
+            System.out.println ("Thread " +
+                    Thread.currentThread().getId() +
+                    " is running");
 
-public class Main {
+        }
+        catch (Exception e)
+        {
+            // Throwing an exception
+            System.out.println ("Exception is caught");
+        }
+    }
+}
+
+interface Function3<One,Two,Three,Result>{
+    public Result apply(One one, Two two, Three three);
+}
+
+ class Main{
+
+    float x = 1.1f;
+
+    int t = (int) x;
+    protected class t{}
 
     public static void main(String[] args) throws IOException {
-        Charset utf8 = StandardCharsets.UTF_8;
+        Function<Integer,Integer> f = (x) -> {return x*x;};
+        Function3<>
 
-        //Creates a file if it does not exists -> overwrites the file by truncating and then writing
-        Files.write(Paths.get("app.log"), Arrays.asList("1","2","3","4","5"),utf8);
+        System.out.println("yo");
+        System.out.println("yo");
+        System.out.println("yo");
+        System.out.println("yo");
+        System.out.println("yo");
+        System.out.println("yo");
+        System.out.println("yo");
 
-        //Overloaded method. Tell it to create if it doesn't exists -> append instead of overriding
-        Files.write(Paths.get("app.log"), Arrays.asList("6","7","8"),utf8, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
 
-        Files.write(Paths.get("app.log"),"Hello World".getBytes());
-
-        System.out.println(Files.readAllLines(Paths.get("app.log"),utf8));
 
     }
-
 
 
 }

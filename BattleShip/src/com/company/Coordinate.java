@@ -26,6 +26,10 @@ public class Coordinate {
     public String getId(){
         return id;
     }
+
+    public void setId(){
+        id = String.valueOf(this.row) + String.valueOf(this.column);
+    }
     public void setRow(int row){
         this.row = row;
     }

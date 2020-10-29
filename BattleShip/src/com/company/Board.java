@@ -11,6 +11,7 @@ public class Board {
     }
 
     public void setPlayer1(String name) {
+
         player1 = new Player(name);
     }
 
@@ -25,14 +26,17 @@ public class Board {
     }
 
     public Player getPlayer2() {
+
         return player2;
     }
 
     public String namePhase() {
-        Scanner scan = new Scanner(System.in);
+        //Scanner scan = new Scanner(System.in);
+        String test = "test";
         while (true) {
             try {
-                return (scan.next());
+                //return (scan.next());
+                return test;
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -55,7 +59,8 @@ public class Board {
         while (true) {
             try {
                 System.out.print("\n" + attacker.getName() + ", please choose a coordinate to attack: ");
-                String input = scan.next();
+                //String input = scan.next();
+                String input = "(1,1)";
                 Coordinate coordinate = new Coordinate(input);
                 if (evaluateCoordinate(coordinate, attacker.getPlayGrid())) {
                     attacker.fire(coordinate, attacker.getPlayGrid(), defender.getShipGrid(), defender);
@@ -82,12 +87,14 @@ public class Board {
             try {
                 Scanner scan = new Scanner(System.in);
                 System.out.println("Enter starting point for your " + ship.getClass().getSimpleName() + "...");
-                String input = scan.next();
+                //String input = scan.next();
+                String input = "(1,1)";
                 Coordinate coordinate = new Coordinate(input);
                 if (evaluateCoordinate(coordinate, player.getShipGrid())) {
 
                     System.out.println("What direction? Vertical (v) or Horizontal (h)?");
-                    input = scan.next();
+                    //input = scan.next();
+                    input = "h";
                     if (input.toLowerCase().equals("v") || input.toLowerCase().equals("h") && canPlaceShip(coordinate, input, player, ship.length)) {
                         placeShip(coordinate, input, player, ship);
                         player.getShipGrid().printGrid();
@@ -102,7 +109,6 @@ public class Board {
     }
 
     public boolean evaluateCoordinate(Coordinate coordinate, Grid grid) {
-
         if (coordinate.isValid() && grid.checkGrid(coordinate)) {
             return true;
         }
