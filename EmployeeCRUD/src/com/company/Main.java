@@ -41,6 +41,7 @@ public class Main {
                     break;
                 case "exit":
                     factory.close();
+                    play =false;
                     break;
                 default:
                     System.out.println("Invalid input. Try again.");
@@ -64,7 +65,6 @@ public class Main {
             session.save(employee);
             session.getTransaction().commit();
             session.close();
-
             return true;
         } catch (Exception e) {
             System.out.println("error");

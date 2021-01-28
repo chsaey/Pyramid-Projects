@@ -1,10 +1,10 @@
 package com.company;
 
-class Animal{
+class Animal {
 
-     protected Animal(){
+    int legs = 10;
 
-     }
-
-
+    public String talk(){
+        return "Im an animal";
+    }
 }

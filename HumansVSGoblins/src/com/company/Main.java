@@ -32,14 +32,15 @@ public class Main {
 
             System.out.println("Please enter your characters name: ");
             String name = "";
+            while (true) {
             try {
-                while (true) {
+
                     name = scan.next();
                     break;
-                }
+
             } catch (Exception e) {
                 System.out.println(e.getMessage());
-            }
+            }                }
 
             Human h = new Human(name);
             World world = new World(h);

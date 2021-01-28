@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+    <!-- add entry to enable component scanning -->
+
+    <bean id="myFortuneService"
+          class="com.example.demo.services.HappyFortuneService">
+    </bean>
+
+    <bean id="myTrackCoach"
+          class="com.example.demo.coaches.TrackCoach">
+        <!--Constructor Injection-->
+        <constructor-arg ref="myFortuneService"/>
+    </bean>
+
+    <bean id="myFootballCoach"
+          class="com.example.demo.coaches.FootballCoach">
+        <!--Setter Injection-->
+        <property name="fortuneService" ref="myFortuneService"/>
+    </bean>
+
+    <bean id="myWrestlingCoach"
+          class="com.example.demo.coaches.WrestlingCoach">
+        <!--Setter Injection-->
+        <property name="fortuneService" ref="myFortuneService"/>
+        <property name="school" value="LakeWashington"/>
+        <property name="teamSize" value="20"/>
+    </bean>
+
+    <bean id="myBasketballCoach"
+          class="com.example.demo.coaches.BasketballCoach">
+        <!--Setter Injection-->
+        <property name="fortuneService" ref="myFortuneService"/>
+        <property name="city" value="Los Angelos"/>
+        <property name="wins" value="100"/>
+
+    </bean>
+
+    <bean id="myBaseballCoach"
+          class="com.example.demo.coaches.BaseballCoach">
+        <!--Setter Injection-->
+        <property name="fortuneService" ref="myFortuneService"/>
+        <!--Inject Literal Values -->
+        <property name="emailAddress" value="charles@gmail.com"/>
+        <property name="team" value="Pyramid"/>
+    </bean>
+</beans>
+
+
+
+
+

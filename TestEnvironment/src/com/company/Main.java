@@ -1,62 +1,33 @@
 package com.company;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.function.Function;
-import java.util.stream.Collector;
+//Files.readAllLines(Path.get(path));
+
+import java.awt.image.AreaAveragingScaleFilter;
+import java.io.File;
+import java.lang.reflect.Array;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.*;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
-import static com.company.Test.*;
-class MultithreadingDemo extends Thread implements Runnable
-{
-    public void run()
-    {
-        try
-        {
-            // Displaying the thread that is running
-            System.out.println ("Thread " +
-                    Thread.currentThread().getId() +
-                    " is running");
+class Main {
 
-        }
-        catch (Exception e)
-        {
-            // Throwing an exception
-            System.out.println ("Exception is caught");
-        }
-    }
-}
+    public static void main(String[] args) {
 
-interface Function3<One,Two,Three,Result>{
-    public Result apply(One one, Two two, Three three);
-}
+        String x = "12345";
+        System.out.println(x.matches("[0-9]+"));
+        StringBuilder sb = new StringBuilder("1");
+        String t = "0".repeat(1);
 
- class Main{
+        ArrayList<Integer> temp = new ArrayList<>();
 
-    float x = 1.1f;
-
-    int t = (int) x;
-    protected class t{}
-
-    public static void main(String[] args) throws IOException {
-        Function<Integer,Integer> f = (x) -> {return x*x;};
-        Function3<>
-
-        System.out.println("yo");
-        System.out.println("yo");
-        System.out.println("yo");
-        System.out.println("yo");
-        System.out.println("yo");
-        System.out.println("yo");
-        System.out.println("yo");
-
+        int [] res = temp.stream().mapToInt(Integer::intValue).toArray();
 
 
     }
-
-
 }
+
 
 
